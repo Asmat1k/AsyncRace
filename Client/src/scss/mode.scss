@@ -1,0 +1,43 @@
+.mode {
+	width: 100%;
+	.mode__container {
+		max-width: 1200px;
+		padding: 20px 15px 0 15px;
+		margin: auto;
+    margin-bottom: 10px;
+		.mode__body {
+      max-width: 140px;
+      .mode__list {
+        display: flex;
+        align-items: left;
+        justify-content: space-between;
+        .mode__item {
+          cursor: pointer;
+          font-family: 'Courier New', Courier, monospace;
+          font-size: 16px;
+
+          padding: 5px 10px;
+          border: 2px solid;
+          border-radius: 5px;
+          
+          transition: .5s;
+          &:hover {
+            transform: scale(1.1);
+          }
+				}
+        .race {
+          background-color: green;
+          color: black;
+        }
+        .reset {
+          background-color: red;
+          color: black;
+        }
+        .generate {
+          background-color: yellow;
+          color: black;
+        }
+			}
+		}
+	}
+}

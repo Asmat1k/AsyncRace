@@ -1,0 +1,119 @@
+.garage {
+  font-family: 'Dosis', sans-serif;
+  width: 100%;
+  .garage__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    .garage__body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .garage__info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .garage__title {
+          font-size: 25px;
+          font-weight: 600;
+        }
+        .garage__page {
+          font-size: 20px;
+          font-weight: 600;
+        }
+      }
+      .garage__list {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: left;
+        .garage__item {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding: 0 0 20px 0;
+          width: 100%;
+          border-bottom: 1px dotted white;
+          .garage__controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 190px;
+            .garage__button {
+              padding: 3px 8px;
+              border: 1px solid white;
+              border-radius: 10px;
+              transition: .3  s;
+              &:hover {
+                background-color: white;
+                color: black;
+                transform: scale(1.1);
+              }
+            }
+            .garage__car-name {
+              font-size: 15px;
+              font-weight: 700;
+              color: red;
+            }
+          }
+          .garage__race {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 90%;
+            .garage__pit {
+              display: flex;
+              align-items: center;
+              gap: 30px;
+              .garage__start-stop {
+                .garage__button {
+                  padding: 3px 8px;
+                  border: 1px solid;
+                  border-radius: 10px;
+                  transition: transform .5s;
+                  &:hover {
+                    transform: scale(1.1);
+                  }
+                }
+                .race {
+                  border-color: green;
+                  color: green;
+                  &:active {
+                    background-color: green;
+                    color: black;
+                  }
+                }
+                .stop {
+                  border-color: red;
+                  color: red;
+                  &:active {
+                    background-color: red;
+                    color: black;
+                  }
+                }
+              }
+            }
+            .garage__road {
+              display: flex;
+              justify-content: space-between;
+              width: 80%;
+              .garage__car {
+                transform: scale(1.5);
+                position: relative;
+                bottom: -13px;
+              }
+              .garage__car_race {
+                right: -90%;
+              }
+              .garage__finish {
+                transform: scale(1.5);
+                position: relative;
+                bottom: -13px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
