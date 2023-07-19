@@ -1,7 +1,10 @@
 import { Cars } from "../../types/types";
 import { getCars } from "../get/get-cars";
 import { setCar } from "../set/setCar";
+import { chooseCar } from "../update/choose-car";
+import { upadteCar } from "../update/upadte-car";
 import { changePage } from "./change-page";
+import { updateCars } from "./update-garage";
 
 export function getPages(): void {
   document.body.innerHTML = '';
@@ -44,12 +47,13 @@ export function getPages(): void {
           </div>
           <button class="info__button create">Create</button>
         </div>
-        <div class="info__item update">
-          <input type="text" placeholder="New car name" maxlength="30" class="info__input">
+        <div class="info__item">
+          <input type="text" placeholder="New car name" maxlength="30" class="info__input info__car">
           <div class="info__color">
             <div class="info__color-cur"></div>
           </div>
           <button class="info__button update">Update</button>
+          <h3 class="info__num"></h3>
         </div>
       </div>
     </div>
@@ -100,11 +104,14 @@ export function getPages(): void {
   changePage();
   // Добавить машину
   setCar();
+
+  upadteCar();
 }
 
 // Заполнение списка машин
 export async function changeList() {
   const list: HTMLElement = document.querySelector('.garage__list')!;
+  list.innerHTML = '';
   // 10 машин на страницу
   // Количество машин
   const length = (await getCars()).length;
@@ -112,6 +119,7 @@ export async function changeList() {
     const car: HTMLElement = await getGarageCar(i);
     list.appendChild(car);
   }
+  chooseCar();
 }
 
 // Заполнение машины
@@ -127,6 +135,7 @@ export async function getGarageCar(i: number): Promise<HTMLElement> {
         <button class="garage__button remove">REMOVE</button>
       </div>
       <h2 class="garage__car-name">${cars[i].name}</h2>
+      <h3 class="garage__car-num">${cars[i].id}</h3>
     </div>
     <div class="garage__race">
       <div class="garage__pit">
