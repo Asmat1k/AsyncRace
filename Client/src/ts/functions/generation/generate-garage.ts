@@ -1,3 +1,5 @@
+import { Cars } from "../../types/types";
+import { getCars } from "../get/get-cars";
 import { changePage } from "./change-page";
 
 export function getPages(): void {
@@ -98,40 +100,49 @@ export function getPages(): void {
 }
 
 // Заполнение списка машин
-function changeList(): void {
+async function changeList() {
   const list: HTMLElement = document.querySelector('.garage__list')!;
   // 10 машин на страницу
-  for(let i = 0; i < 5; i += 1) {
-    const car: HTMLElement = getGarageCar();
+  // Количество машин
+  const length = (await getCars()).length;
+  for(let i = 0; i < length; i += 1) {
+    const car = await getGarageCar(i);
     list.appendChild(car);
   }
 }
 
 // Заполнение машины
-export function getGarageCar(): HTMLElement {
+export async function getGarageCar(i: number) {
   const car: HTMLElement = document.createElement('li');
   car.classList.add('garage__item');
-  car.innerHTML = 
-  `<div class="garage__controls">
-    <button class="garage__button select">SELECT</button>
-    <button class="garage__button remove">REMOVE</button>
-    <h2 class="garage__car-name">Tesla</h2>
-  </div>
-  <div class="garage__race">
-    <div class="garage__pit">
-      <div class="garage__start-stop">
-        <button class="garage__button race">GO</button>
-        <button class="garage__button stop">STOP</button>
+  try {
+    const cars = await getCars();
+    car.innerHTML = 
+    `<div class="garage__controls">
+      <div class="garage__buttons">
+        <button class="garage__button select">SELECT</button>
+        <button class="garage__button remove">REMOVE</button>
       </div>
+      <h2 class="garage__car-name">${cars[i].name}</h2>
     </div>
-    <div class="garage__road">
-      <div class="garage__car">
-        <i class="fa-solid fa-car-side fa-2xl" style="color: #ffffff;"></i>
+    <div class="garage__race">
+      <div class="garage__pit">
+        <div class="garage__start-stop">
+          <button class="garage__button race">GO</button>
+          <button class="garage__button stop">STOP</button>
+        </div>
       </div>
-      <div class="garage__finish">
-        <i class="fa-solid fa-flag-checkered fa-2xl" style="color: #ffffff;"></i>
-      </div>  
-    </div>
-  </div>`;
-  return car;
+      <div class="garage__road">
+        <div class="garage__car">
+          <i class="fa-solid fa-car-side fa-2xl" style="color: ${cars[i].color};"></i>
+        </div>
+        <div class="garage__finish">
+          <i class="fa-solid fa-flag-checkered fa-2xl" style="color: #ffffff;"></i>
+        </div>  
+      </div>
+    </div>`;
+    return car;
+  } catch(error) {
+    throw(error);
+  }
 }

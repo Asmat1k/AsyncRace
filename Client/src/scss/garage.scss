@@ -37,20 +37,23 @@
           .garage__controls {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            width: 190px;
-            .garage__button {
-              padding: 3px 8px;
-              border: 1px solid white;
-              border-radius: 10px;
-              transition: .3  s;
-              &:hover {
-                background-color: white;
-                color: black;
-                transform: scale(1.1);
+            gap: 10px;
+            width: 220px;
+            .garage__buttons {
+              .garage__button {
+                padding: 3px 8px;
+                border: 1px solid white;
+                border-radius: 10px;
+                transition: .3  s;
+                &:hover {
+                  background-color: white;
+                  color: black;
+                  transform: scale(1.1);
+                }
               }
             }
             .garage__car-name {
+              text-align: left;
               font-size: 15px;
               font-weight: 700;
               color: red;
