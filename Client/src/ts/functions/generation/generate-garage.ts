@@ -1,5 +1,6 @@
 import { Cars } from "../../types/types";
 import { getCars } from "../get/get-cars";
+import { setCar } from "../set/setCar";
 import { changePage } from "./change-page";
 
 export function getPages(): void {
@@ -36,19 +37,19 @@ export function getPages(): void {
   `<div class="info__container">
     <div class="info__body">
       <div class="info__list">
-        <div class="info__item create">
-          <input type="text" placeholder="Car name" maxlength="30" class="info__input">
+        <div class="info__item">
+          <input type="text" placeholder="Car name" maxlength="30" class="info__input info__car-new">
           <div class="info__color">
             <div class="info__color-cur"></div>
           </div>
-          <button class="info__button">Create</button>
+          <button class="info__button create">Create</button>
         </div>
         <div class="info__item update">
           <input type="text" placeholder="New car name" maxlength="30" class="info__input">
           <div class="info__color">
             <div class="info__color-cur"></div>
           </div>
-          <button class="info__button">Update</button>
+          <button class="info__button update">Update</button>
         </div>
       </div>
     </div>
@@ -97,22 +98,24 @@ export function getPages(): void {
   changeList();
   // Вешаем прослушку на кнопки
   changePage();
+  // Добавить машину
+  setCar();
 }
 
 // Заполнение списка машин
-async function changeList() {
+export async function changeList() {
   const list: HTMLElement = document.querySelector('.garage__list')!;
   // 10 машин на страницу
   // Количество машин
   const length = (await getCars()).length;
   for(let i = 0; i < length; i += 1) {
-    const car = await getGarageCar(i);
+    const car: HTMLElement = await getGarageCar(i);
     list.appendChild(car);
   }
 }
 
 // Заполнение машины
-export async function getGarageCar(i: number) {
+export async function getGarageCar(i: number): Promise<HTMLElement> {
   const car: HTMLElement = document.createElement('li');
   car.classList.add('garage__item');
   try {
