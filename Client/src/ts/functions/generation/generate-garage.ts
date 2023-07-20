@@ -1,6 +1,8 @@
 import { Cars } from "../../types/types";
-import { getCars } from "../get/get-cars";
+import { getCars, getTotalCars } from "../get/get-cars";
 import { gameControls } from "../mode/game-controls";
+import { currentPage } from "../pagination/page";
+import { slidePagination } from "../pagination/pagination";
 import { setCar } from "../set/setCar";
 import { chooseCar } from "../update/choose-car";
 import { upadteCar } from "../update/upadte-car";
@@ -109,6 +111,8 @@ export function getPages(): void {
   upadteCar();
   // Генерация машины
   gameControls();
+  // Паштнация
+  slidePagination();
 }
 
 // Заполнение списка машин
@@ -118,9 +122,9 @@ export async function changeList() {
   list.innerHTML = '';
   // 10 машин на страницу
   // Количество машин
-  let length = (await getCars()).length;
-  count.innerHTML = `${length}`;
+  count.innerHTML = `${(await getTotalCars()).length}`;
   // 10 на страницу
+  let length = (await getCars(currentPage)).length;
   length = length > 10 ? 10 : length;
   // changeCount(length);
   for(let i = 0; i < length; i += 1) {
@@ -135,7 +139,7 @@ export async function getGarageCar(i: number): Promise<HTMLElement> {
   const car: HTMLElement = document.createElement('li');
   car.classList.add('garage__item');
   try {
-    const cars = await getCars();
+    const cars = await getCars(currentPage);
     car.innerHTML = 
     `<div class="garage__controls">
       <div class="garage__buttons">

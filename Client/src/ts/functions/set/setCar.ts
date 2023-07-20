@@ -1,6 +1,7 @@
 import { Cars } from "../../types/types";
 import { updateCars } from "../generation/update-garage";
-import { getCars } from "../get/get-cars";
+import { getCars, getTotalCars } from "../get/get-cars";
+import { currentPage } from "../pagination/page";
 
 // Клик на кнопку добавления
 export function setCar():void {
@@ -18,7 +19,7 @@ export function setCar():void {
       await updateCars();
 
       // Обновление списка
-      let length = (await getCars()).length;
+      let length = (await getTotalCars()).length;
       count.innerHTML = `${length}`;
 
       // Очистка полсе создания

@@ -8,4 +8,3 @@ myFunctions.isWebp();
 
 // Генерация гаража
 getPages();
-getCars();
