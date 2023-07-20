@@ -118,6 +118,7 @@ export async function changeList() {
   // 10 машин на страницу
   // Количество машин
   const length = (await getCars()).length;
+  // changeCount(length);
   for(let i = 0; i < length; i += 1) {
     const car: HTMLElement = await getGarageCar(i);
     list.appendChild(car);

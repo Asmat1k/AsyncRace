@@ -7,18 +7,18 @@ export function chooseCar() {
   const nums: NodeListOf<HTMLElement> = document.querySelectorAll('.garage__car-num')!;
   buttons.forEach((button, index) => {
     button.addEventListener('click', async () => {
-      // console.log(index % 2 > 0 ? Math.floor(index / 2) : index)
       // Если клик по кнопке выбора, они имеют четный индекс, поэтому они отлавливаются по делению
       if(button.classList.contains('select')) await fillCarInfo(+nums[index / 2].innerHTML);
       // Если клик по кнопке удаления, они имет не четный индекс
-      if(button.classList.contains('remove')) await deleteCar(+nums[index % 2 > 0 ? Math.floor(index / 2) : index].innerHTML);
+      if(button.classList.contains('remove'))  {
+        await deleteCar(+nums[index % 2 > 0 ? Math.floor(index / 2) : index].innerHTML);
+      }
     });
   });
 }
 
 //!TODO Доделать
 export async function fillCarInfo(i: number) {
-  console.log(i);
   const name: HTMLInputElement = document.querySelector('.info__car')!;
   // Блок который хранит текущее id
   const id: HTMLElement = document.querySelector('.info__num')!;

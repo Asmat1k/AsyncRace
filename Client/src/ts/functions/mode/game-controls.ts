@@ -1,3 +1,4 @@
+import { changeList } from "../generation/generate-garage";
 import { updateCars } from "../generation/update-garage";
 import { createCar } from "../set/setCar";
 import { carModel } from "../storage/car-models";
@@ -21,14 +22,12 @@ export function gameControls() {
             name: carName,
             color: carColor,
           })
-          // Обновляет список
-          await updateCars();
-          // Чтобы новые машины были активны к выбору
-          await chooseCar();
         }
+        // Обновляет список
+        await changeList();
       }
     })
-  })
+  });
 }
 
 // Функция рандома для массивов со значениями
