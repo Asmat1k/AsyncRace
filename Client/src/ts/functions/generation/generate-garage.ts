@@ -1,5 +1,6 @@
 import { Cars } from "../../types/types";
 import { getCars } from "../get/get-cars";
+import { gameControls } from "../mode/game-controls";
 import { setCar } from "../set/setCar";
 import { chooseCar } from "../update/choose-car";
 import { upadteCar } from "../update/upadte-car";
@@ -104,8 +105,10 @@ export function getPages(): void {
   changePage();
   // Добавить машину
   setCar();
-
+  // Обновление машины
   upadteCar();
+  // Генерация машины
+  gameControls();
 }
 
 // Заполнение списка машин
@@ -131,8 +134,8 @@ export async function getGarageCar(i: number): Promise<HTMLElement> {
     car.innerHTML = 
     `<div class="garage__controls">
       <div class="garage__buttons">
-        <button class="garage__button select">SELECT</button>
-        <button class="garage__button remove">REMOVE</button>
+        <button class="garage__button controls select">SELECT</button>
+        <button class="garage__button controls remove">REMOVE</button>
       </div>
       <h2 class="garage__car-name">${cars[i].name}</h2>
       <h3 class="garage__car-num">${cars[i].id}</h3>

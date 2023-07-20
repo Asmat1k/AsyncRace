@@ -15,6 +15,8 @@ export function upadteCar() {
       }, id.innerHTML);
       // обновляем список
       await changeList();
+      // Очистка поля ввода
+      name.value = '';
     }
   });
 }

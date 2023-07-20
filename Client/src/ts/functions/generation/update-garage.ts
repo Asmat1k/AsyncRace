@@ -1,4 +1,5 @@
 import { getCars } from "../get/get-cars";
+import { chooseCar } from "../update/choose-car";
 import { getGarageCar } from "./generate-garage";
 
 // Обновление гаража
@@ -8,4 +9,6 @@ export async function updateCars(): Promise<void> {
   const last = (await getCars()).length;
   const car: HTMLElement = await getGarageCar(last - 1);
   list.appendChild(car);
+  // Вешаем на новую машину обработчик
+  await chooseCar();
 }
