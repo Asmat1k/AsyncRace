@@ -114,10 +114,14 @@ export function getPages(): void {
 // Заполнение списка машин
 export async function changeList() {
   const list: HTMLElement = document.querySelector('.garage__list')!;
+  const count: HTMLElement = document.querySelector('.garage__all-list')!;
   list.innerHTML = '';
   // 10 машин на страницу
   // Количество машин
-  const length = (await getCars()).length;
+  let length = (await getCars()).length;
+  count.innerHTML = `${length}`;
+  // 10 на страницу
+  length = length > 10 ? 10 : length;
   // changeCount(length);
   for(let i = 0; i < length; i += 1) {
     const car: HTMLElement = await getGarageCar(i);
