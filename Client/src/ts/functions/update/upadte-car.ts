@@ -9,7 +9,7 @@ export function upadteCar() {
   updateButton?.addEventListener('click', async () => {
     if(name.value.length > 0) {
       // данные, которые хоти обновить
-      await updateCar({
+      await updateItem({
         name: name.value,
         color: 'green'
       }, id.innerHTML);
@@ -20,7 +20,7 @@ export function upadteCar() {
 }
 
 // Обновление записи
-async function updateCar(body: object, id: string): Promise<Cars> {
+async function updateItem(body: object, id: string): Promise<Cars> {
   // Обращение по id
   const url = `http://127.0.0.1:3000/garage/${id}`;
   const response = await fetch(url, {

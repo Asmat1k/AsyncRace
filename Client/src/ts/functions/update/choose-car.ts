@@ -1,10 +1,12 @@
 import { changeList } from "../generation/generate-garage";
+import { deleteCar } from "./delete-car";
 
 export function chooseCar() {
-  const cars: NodeListOf<HTMLElement> = document.querySelectorAll('.select')!;
-  cars.forEach((car, index) => {
-    car.addEventListener('click', async () => {
-      await fillCarInfo(index);
+  const buttons: NodeListOf<HTMLElement> = document.querySelectorAll('.garage__button')!;
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', async () => {
+      if(button.classList.contains('select')) await fillCarInfo(index);
+      if(button.classList.contains('remove')) await deleteCar(index);
     });
   });
 }
