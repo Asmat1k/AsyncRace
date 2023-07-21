@@ -72,7 +72,7 @@ export function getPages(): void {
     <div class="mode__body">
       <div class="mode__list">
         <button class="mode__item race-all">RACE</button>
-        <button class="mode__item reset">RESET</button>
+        <button class="mode__item reset" disabled>RESET</button>
         <button class="mode__item generate">GENERATE</button>
       </div>
     </div>

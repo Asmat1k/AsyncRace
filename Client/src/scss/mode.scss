@@ -24,6 +24,13 @@
           &:hover {
             transform: scale(1.1);
           }
+          &:disabled {
+            background-color: black;
+            color: gray;
+            &:hover {
+              transform: scale(1);
+            }
+          }
 				}
         .race-all {
           background-color: green;
