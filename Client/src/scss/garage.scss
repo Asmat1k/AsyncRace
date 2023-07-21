@@ -89,6 +89,17 @@
                     background-color: green;
                     color: black;
                   }
+                  &:disabled {
+                    color: gray;
+                    border-color: gray;
+                    &:active {
+                      background-color: black;
+                      color: gray;
+                    }
+                    &:hover {
+                      transform: scale(1);
+                    }
+                  }
                 }
                 .stop {
                   border-color: red;
@@ -110,8 +121,14 @@
                 bottom: -13px;
               }
               .garage__car_race {
-                right: -90%;
+                animation: race;
+                animation-duration: 5s;
+                animation-fill-mode: forwards ;
               }
+              @keyframes race {
+                from { right: 0; }
+                to { right: -105%; }
+               }
               .garage__finish {
                 transform: scale(1.5);
                 position: relative;

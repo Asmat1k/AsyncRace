@@ -3,6 +3,7 @@ import { getCars, getTotalCars } from "../get/get-cars";
 import { gameControls } from "../mode/game-controls";
 import { currentPage } from "../pagination/page";
 import { slidePagination } from "../pagination/pagination";
+import { carRace } from "../race/race";
 import { setCar } from "../set/setCar";
 import { chooseCar } from "../update/choose-car";
 import { upadteCar } from "../update/upadte-car";
@@ -70,7 +71,7 @@ export function getPages(): void {
   `<div class="mode__container">
     <div class="mode__body">
       <div class="mode__list">
-        <button class="mode__item race">RACE</button>
+        <button class="mode__item race-all">RACE</button>
         <button class="mode__item reset">RESET</button>
         <button class="mode__item generate">GENERATE</button>
       </div>
@@ -125,13 +126,14 @@ export async function changeList() {
   count.innerHTML = `${(await getTotalCars()).length}`;
   // 10 на страницу
   let length = (await getCars(currentPage)).length;
-  length = length > 10 ? 10 : length;
+  length = length > 7 ? 7 : length;
   // changeCount(length);
   for(let i = 0; i < length; i += 1) {
     const car: HTMLElement = await getGarageCar(i);
     list.appendChild(car);
   }
   chooseCar();
+  carRace();
 }
 
 // Заполнение машины
@@ -152,8 +154,8 @@ export async function getGarageCar(i: number): Promise<HTMLElement> {
     <div class="garage__race">
       <div class="garage__pit">
         <div class="garage__start-stop">
-          <button class="garage__button race">GO</button>
-          <button class="garage__button stop">STOP</button>
+          <button class="garage__button race start">GO</button>
+          <button class="garage__button race stop" disabled>STOP</button>
         </div>
       </div>
       <div class="garage__road">
