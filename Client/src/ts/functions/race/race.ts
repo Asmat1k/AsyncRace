@@ -9,6 +9,8 @@ export function carRace() {
   raceButtons.forEach((button, index) => {
     button.addEventListener('click', async (event: Event) => {
       const eventTarget: HTMLButtonElement = event.target as HTMLButtonElement;
+      // Отключение кнопки
+      eventTarget.disabled = true;
       // Если это кнопка старта
       if (button.classList.contains('start')) {
         try {
@@ -22,10 +24,13 @@ export function carRace() {
             cars[index / 2].style.animationDuration = `${time / 1000}s`;
             cars[index / 2].classList.add('garage__car_race');
             // Отключение кнопки
-            eventTarget.disabled = true;
             stopButtons[index / 2].disabled = false;
             // Результат заезда
-            await driveMode(+nums[index /   2].innerHTML);
+            const result = await driveMode(+nums[index /   2].innerHTML);
+            if (!result) {
+            // Отключаем кнопку остановки двигателя
+            stopButtons[index / 2].disabled = false;
+            }
           } catch(driveError) {
             // Останавливаем анимацию
             cars[index / 2].style.animationPlayState = 'paused';
@@ -34,8 +39,6 @@ export function carRace() {
         } catch (EngineStartError) {
           throw (EngineStartError);
         }
-        // Отключаем кнопку остановки двигателя
-        stopButtons[index / 2].disabled = false;
       }
       // Если кнопка стопа
       if (button.classList.contains('stop')) {
