@@ -1,8 +1,8 @@
+// Страница с победителями
 export function getWinnersPage(): void {
   // Создание page
   const page: HTMLElement = document.querySelector('.page')!;
   page.innerHTML = '';
-
 
   // Создание полей ввода
   const leader: HTMLElement = document.createElement('section');
@@ -29,14 +29,14 @@ export function getWinnersPage(): void {
   changeWinnersList();
 }
 
-// Заполнение списка машин
+// Заполнение списка машин победителей
 function changeWinnersList(): void {
   const list: HTMLElement = document.querySelector('.winner__list')!;
-  const listHeader: HTMLElement = document.createElement('li');
+  const listHeader: HTMLElement = document.createElement('li')!;
   listHeader.classList.add('winner__item');
   listHeader.classList.add('winner__header');
   listHeader.innerHTML = 
-  ` <div class="winner__number">Number</div>
+  `<div class="winner__number">Number</div>
   <div class="winner__car">Car</div>
   <div class="winner__name">Name</div>
   <div class="winner__wins">Wins</div>

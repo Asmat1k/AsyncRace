@@ -2,12 +2,12 @@ import { Cars } from "../../types/types";
 import { changeList } from "../generation/generate-garage";
 
 // Функция обновления машины
-export function upadteCar() {
+export function upadteCar(): void {
   const updateButton: HTMLElement = document.querySelector('.update')!;
   const name: HTMLInputElement = document.querySelector('.info__car')!;
   const id: HTMLElement = document.querySelector('.info__num')!;
-  updateButton?.addEventListener('click', async () => {
-    if(name.value.length > 0) {
+  updateButton?.addEventListener('click', async (): Promise<void> => {
+    if (name.value.length > 0) {
       // данные, которые хоти обновить
       await updateItem({
         name: name.value,

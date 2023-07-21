@@ -1,4 +1,3 @@
-import { Cars } from "../../types/types";
 import { getCars, getTotalCars } from "../get/get-cars";
 import { gameControls } from "../mode/game-controls";
 import { currentPage } from "../pagination/page";
@@ -8,8 +7,8 @@ import { setCar } from "../set/setCar";
 import { chooseCar } from "../update/choose-car";
 import { upadteCar } from "../update/upadte-car";
 import { changePage } from "./change-page";
-import { updateCars } from "./update-garage";
 
+// Отрисовка гаража
 export function getPages(): void {
   document.body.innerHTML = '';
   // Создание оболочки
@@ -30,7 +29,6 @@ export function getPages(): void {
       </nav>
     </div>
   </div>`;
-
   wrapper.appendChild(header);
   
   // Создание page
@@ -92,8 +90,8 @@ export function getPages(): void {
     <ul class="garage__list">
     </ul>
     <div class="garage__pag-controls">
-      <button class="garage__button prev">PREV</button>
-      <button class="garage__button next">NEXT</button>
+      <button class="garage__button pagination prev">PREV</button>
+      <button class="garage__button pagination next">NEXT</button>
     </div>
     </div>
   </div>`;
@@ -117,22 +115,23 @@ export function getPages(): void {
 }
 
 // Заполнение списка машин
-export async function changeList() {
+export async function changeList(): Promise<void> {
   const list: HTMLElement = document.querySelector('.garage__list')!;
   const count: HTMLElement = document.querySelector('.garage__all-list')!;
   list.innerHTML = '';
-  // 10 машин на страницу
+  // 7 машин на страницу
   // Количество машин
   count.innerHTML = `${(await getTotalCars()).length}`;
-  // 10 на страницу
-  let length = (await getCars(currentPage)).length;
+  // 7 на страницу
+  let length: number = (await getCars(currentPage)).length;
   length = length > 7 ? 7 : length;
-  // changeCount(length);
   for(let i = 0; i < length; i += 1) {
     const car: HTMLElement = await getGarageCar(i);
     list.appendChild(car);
   }
+  // Прослшушка на машины
   chooseCar();
+  // Управление машиной
   carRace();
 }
 

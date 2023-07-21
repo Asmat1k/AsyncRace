@@ -1,5 +1,6 @@
 import { Cars } from "../../types/types";
  
+// Получение машины 
 export async function getCars(id: number): Promise<Array<Cars>> {
   try { 
     const url = ` http://127.0.0.1:3000/garage?_page=${id}`;
@@ -12,6 +13,7 @@ export async function getCars(id: number): Promise<Array<Cars>> {
   }
 }
 
+// Получение списка машин
 export async function getTotalCars(): Promise<Array<Cars>> {
   try { 
     const url = ` http://127.0.0.1:3000/garage`;

@@ -1,12 +1,12 @@
-import { Cars } from "../../types/types";
+import { Cars, Drive, StartStop } from "../../types/types";
 
-export function carRace() {
+export function carRace(): void {
   const raceButtons: NodeListOf<HTMLElement> = document.querySelectorAll('.race')!;
   const nums: NodeListOf<HTMLElement> = document.querySelectorAll('.garage__car-num')!;
   const cars: NodeListOf<HTMLElement> = document.querySelectorAll('.garage__car')!;
   const startButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.start')!;
   const stopButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.stop')!;
-  raceButtons.forEach((button, index) => {
+  raceButtons.forEach((button: HTMLElement, index: number) => {
     button.addEventListener('click', async (event: Event) => {
       const eventTarget: HTMLButtonElement = event.target as HTMLButtonElement;
       // Отключение кнопки
@@ -15,7 +15,7 @@ export function carRace() {
       if (button.classList.contains('start')) {
         try {
           // Ответ об заведенном двигателе
-          const response = await startEngine(+nums[index / 2].innerHTML, true);
+          const response: StartStop = await startEngine(+nums[index / 2].innerHTML, true);
           // Ожидаем
           try {
             // Расчет времени
@@ -26,12 +26,10 @@ export function carRace() {
             // Отключение кнопки
             stopButtons[index / 2].disabled = false;
             // Результат заезда
-            const result = await driveMode(+nums[index /   2].innerHTML);
-            if (!result) {
+            await driveMode(+nums[index /   2].innerHTML);
+          } catch(driveError) {
             // Отключаем кнопку остановки двигателя
             stopButtons[index / 2].disabled = false;
-            }
-          } catch(driveError) {
             // Останавливаем анимацию
             cars[index / 2].style.animationPlayState = 'paused';
             throw (driveError);
@@ -55,7 +53,7 @@ export function carRace() {
 }
 
 // Запуск двигателя
-export async function startEngine(id: number, status: boolean) {
+export async function startEngine(id: number, status: boolean): Promise<StartStop> {
   const url = `http://127.0.0.1:3000/engine?id=${id}&status=${status ? 'started' : 'stopped'}`;
   const response = await fetch(url, {
     method: 'PATCH',
@@ -64,13 +62,12 @@ export async function startEngine(id: number, status: boolean) {
   return data;
 }
 
-// Запуск двигателя
-export async function driveMode(id: number): Promise<Cars> {
+// Режим поездки
+export async function driveMode(id: number): Promise<Drive> {
   const url = `http://127.0.0.1:3000/engine?id=${id}&status=drive`;
   const response = await fetch(url, {
     method: 'PATCH',
   });
   const data = await response.json();
-  // console.log(data);
   return data;
 }
