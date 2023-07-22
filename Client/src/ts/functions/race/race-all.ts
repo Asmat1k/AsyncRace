@@ -1,12 +1,16 @@
 import { getCar } from "../car/get-car";
+import { getCars } from "../car/get-cars";
 import { driveMode } from "../engine/drive-engine";
 import { startEngine } from "../engine/start-engine";
+import { currentPage } from "../pagination/page";
 import { getWinner } from "../winners/get-winner";
 import { setWinner } from "../winners/set-winner";
 import { updateWinner } from "../winners/update-winner";
+import { isStopped } from "./reset-all";
 
 export let score: number = 100;
 export let id: number;
+export let animated = 0;
 
 // Начало гонки
 export function startRace(): void {
@@ -16,6 +20,7 @@ export function startRace(): void {
   const resetButton: HTMLButtonElement = document.querySelector('.reset')!;
   // Индикатор победы, чтобы регистрировалась только самая первая машина
   let win = false;
+  animated = 0;
 
   items.forEach(async (item: HTMLElement) => {
     buttonsDisable(startButtons, true);
@@ -31,12 +36,17 @@ export function startRace(): void {
       // Анимация старт
       carModel.style.animationDuration = `${time}s`;
       carModel.classList.add('garage__car_race');
-      resetButton.disabled = false;
+      // Активировать кнопку остановки гонки только тогла, когда все машины анимированы иначе баганет :)
+      animated += 1;
+      console.log(`${animated} vs ${(await getCars(currentPage)).length}`);
+      if (animated === (await getCars(currentPage)).length) {
+        resetButton.disabled = false;
+      }
       // Включение кнопки
       buttonsDisable(stopButtons, false);
       // Процесс гонки
       const result = await driveMode(+carId.innerHTML);
-      // Проверка на первого победителя
+      // Если никто еще не выиграл и гонка не остановлена, посчитать результат
       if (!win) {
         win = true;
         score = +time.toFixed(2);
@@ -66,9 +76,12 @@ export function startRace(): void {
         }
       }
     } catch (driveError) {
-      // Анимация конец при остановке двигателя
-      carModel.style.transform = 'scale(1.5) rotate(10deg)';
-      carModel.style.animationPlayState = 'paused';
+      // Если гонка идет
+      if (!isStopped){
+        // Анимация конец при остановке двигателя
+        carModel.style.transform = 'scale(1.5) rotate(10deg)';
+        carModel.style.animationPlayState = 'paused';
+      }
       // Кинуть ошибку
       // throw (driveError);
     }

@@ -1,16 +1,18 @@
 import { startEngine } from "../engine/start-engine";
 import { buttonsDisable } from "./race-all";
 
-export let winners: Array<number> = [];
+export let isStopped = false;
 
 // Конец гонки
 //! TODO Пофиксить окончание гонки
-export function endRace(): void {
+export function endRace(isStopped = false): void {
   const items: NodeListOf<HTMLElement> = document.querySelectorAll('.garage__item')!;
   const startButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.start')!;
   const stopButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.stop')!;
   const raceButtons: HTMLButtonElement = document.querySelector('.race-all')!;
-  
+
+  isStopped = true;
+
   items.forEach(async (item: HTMLElement): Promise<void> => {
     buttonsDisable(startButtons, false);
     buttonsDisable(stopButtons, true);
