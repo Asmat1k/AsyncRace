@@ -6,7 +6,7 @@ import { currentPage } from "../pagination/page";
 import { getWinner } from "../winners/get-winner";
 import { setWinner } from "../winners/set-winner";
 import { updateWinner } from "../winners/update-winner";
-import { isStopped } from "./reset-all";
+import { getStopStatus, isStopped } from "./reset-all";
 
 export let score: number = 100;
 export let id: number;
@@ -14,6 +14,7 @@ export let animated = 0;
 
 // Начало гонки
 export function startRace(): void {
+  const headerButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.header__item button')!;
   const items: NodeListOf<HTMLElement> = document.querySelectorAll('.garage__item');
   const startButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.start')!;
   const stopButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.stop')!;
@@ -21,6 +22,7 @@ export function startRace(): void {
   // Индикатор победы, чтобы регистрировалась только самая первая машина
   let win = false;
   animated = 0;
+  buttonsDisable(headerButtons, true);
 
   items.forEach(async (item: HTMLElement) => {
     buttonsDisable(startButtons, true);
@@ -38,46 +40,49 @@ export function startRace(): void {
       carModel.classList.add('garage__car_race');
       // Активировать кнопку остановки гонки только тогла, когда все машины анимированы иначе баганет :)
       animated += 1;
-      console.log(`${animated} vs ${(await getCars(currentPage)).length}`);
       if (animated === (await getCars(currentPage)).length) {
         resetButton.disabled = false;
       }
       // Включение кнопки
       buttonsDisable(stopButtons, false);
       // Процесс гонки
-      const result = await driveMode(+carId.innerHTML);
+      await driveMode(+carId.innerHTML);
       // Если никто еще не выиграл и гонка не остановлена, посчитать результат
       if (!win) {
         win = true;
         score = +time.toFixed(2);
         id = +carId.innerHTML;
-        await showWinnerBlock(id, score);
-        // Работа с таблицей победителей
-        try {
-          // Пробуем установить победителя
-          await setWinner({
-            id: id,
-            wins: 1,
-            time: score
-          });
-          console.log('New winner created!');
-          // Если такая машину УЖЕ есть
-        } catch (getWinnerError) {  
-          // Получаем о ней информацию
-          const result = await getWinner(id);
-          // Обновляем о ней информацию
-          await updateWinner(id, {
-            wins: result.wins += 1,
-            // Если в этот раз быстрее, то заменить время
-            time: score < result.time ? score: result.time,
-          });
-          // Если кидать ошибку в записи победителя, то сработает try-catch родитель
-          console.log('Winner is updated!');
+        // Если машина анимирована
+        if (carModel.classList.contains('garage__car_race')) await showWinnerBlock(id, score);
+        // Работа с таблицей победителей и Если машина анимирована
+        if (carModel.classList.contains('garage__car_race')) {
+          try {
+            // Пробуем установить победителя
+            await setWinner({
+              id: id,
+              wins: 1,
+              time: score
+            });
+            console.log('New winner created!');
+            // Если такая машину УЖЕ есть
+          } catch (getWinnerError) {  
+            // Получаем о ней информацию
+            const result = await getWinner(id);
+            // Обновляем о ней информацию
+            await updateWinner(id, {
+              wins: result.wins += 1,
+              // Если в этот раз быстрее, то заменить время
+              time: score < result.time ? score: result.time,
+            });
+            // Если кидать ошибку в записи победителя, то сработает try-catch родитель
+            console.log('Winner is updated!');
+          }
+          buttonsDisable(headerButtons, false);
         }
       }
     } catch (driveError) {
-      // Если гонка идет
-      if (!isStopped){
+      // Если машина анимирована
+      if (carModel.classList.contains('garage__car_race')) {
         // Анимация конец при остановке двигателя
         carModel.style.transform = 'scale(1.5) rotate(10deg)';
         carModel.style.animationPlayState = 'paused';
@@ -85,6 +90,7 @@ export function startRace(): void {
       // Кинуть ошибку
       // throw (driveError);
     }
+    buttonsDisable(headerButtons, false);
   });
 }
 

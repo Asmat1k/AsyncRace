@@ -23,8 +23,8 @@ export function getPages(): void {
     <div class="header__body">
       <nav class="header__nav">
         <ul class="header__list">
-          <li class="header__item gar">GARAGE</li>
-          <li class="header__item winners">WINNERS</li>
+          <li class="header__item"><button class="gar">GARAGE</button></li>
+          <li class="header__item"><button class="winners">WINNERS</button></li>
         </ul>
       </nav>
     </div>
