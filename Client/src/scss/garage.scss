@@ -123,16 +123,16 @@
               .garage__car_race {
                 animation: race;
                 animation-duration: 5s;
-                animation-fill-mode: forwards ;
+                animation-fill-mode: forwards;
               }
               @keyframes race {
                 from { right: 0; }
-                to { right: -105%; }
+                to { right: -103%; }
                }
               .garage__finish {
                 transform: scale(1.5);
                 position: relative;
-                bottom: -13px;
+                bottom: -10px;
               }
             }
           }

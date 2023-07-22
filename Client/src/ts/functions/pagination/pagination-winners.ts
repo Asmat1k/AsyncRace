@@ -1,16 +1,16 @@
-import { changeCurrentPage } from "./page";
+import { changeWinnersCurrentPage } from "./page";
 
 // Пагинация
-export function slidePagination() {
-  const pagButtons: NodeListOf<HTMLElement> = document.querySelectorAll('.pagination')!;
+export function slideWinnersPagination() {
+  const pagButtons: NodeListOf<HTMLElement> = document.querySelectorAll('.winner__button')!;
   // Добавление прослушки на кнопки
   pagButtons.forEach(button => {
     button.addEventListener('click', () => {
       if (button.classList.contains('next')) {
-        changeCurrentPage(true);
+        changeWinnersCurrentPage(true);
       }
       if (button.classList.contains('prev')) {
-        changeCurrentPage(false);
+        changeWinnersCurrentPage(false);
       }
     });
   })

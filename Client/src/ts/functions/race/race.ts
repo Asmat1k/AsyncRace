@@ -1,4 +1,6 @@
 import { Cars, Drive, StartStop } from "../../types/types";
+import { driveMode } from "../engine/drive-engine";
+import { startEngine } from "../engine/start-engine";
 
 export function carRace(): void {
   const raceButtons: NodeListOf<HTMLElement> = document.querySelectorAll('.race')!;
@@ -50,24 +52,4 @@ export function carRace(): void {
       }
     });
   })
-}
-
-// Запуск двигателя
-export async function startEngine(id: number, status: boolean): Promise<StartStop> {
-  const url = `http://127.0.0.1:3000/engine?id=${id}&status=${status ? 'started' : 'stopped'}`;
-  const response = await fetch(url, {
-    method: 'PATCH',
-  });
-  const data = await response.json();
-  return data;
-}
-
-// Режим поездки
-export async function driveMode(id: number): Promise<Drive> {
-  const url = `http://127.0.0.1:3000/engine?id=${id}&status=drive`;
-  const response = await fetch(url, {
-    method: 'PATCH',
-  });
-  const data = await response.json();
-  return data;
 }

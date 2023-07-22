@@ -1,4 +1,4 @@
-import { driveMode, startEngine } from "./race";
+import { startEngine } from "../engine/start-engine";
 import { buttonsDisable } from "./race-all";
 
 export let winners: Array<number> = [];
@@ -15,12 +15,22 @@ export function endRace(): void {
     buttonsDisable(startButtons, false);
     buttonsDisable(stopButtons, true);
     // Модель машинки
-    const car: HTMLElement = item.querySelector('.garage__car')!;
-    car.classList.remove('garage__car_race');
+    const carModel: HTMLElement = item.querySelector('.garage__car')!;
+    carModel.classList.remove('garage__car_race');
+    carModel.style.transform = 'scale(1.5)';
+    carModel.style.animationPlayState = 'running';
     raceButtons.disabled = false;
     // Айди машины
     const carId: HTMLElement = item.querySelector('.garage__car-num')!;
     // Завести машину
     await startEngine(+carId.innerHTML, false);
+    hideWinnerBlock();
   });
+}
+
+// Спрятать блок
+export function hideWinnerBlock() {
+  const popup: HTMLElement = document.querySelector('.popup')!;
+  popup.style.display = 'none';
+  popup.innerHTML = '';
 }

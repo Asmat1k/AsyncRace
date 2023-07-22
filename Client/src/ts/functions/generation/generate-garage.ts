@@ -1,11 +1,11 @@
-import { getCars, getTotalCars } from "../get/get-cars";
+import { getCars, getTotalCars } from "../car/get-cars";
 import { gameControls } from "../mode/game-controls";
 import { currentPage } from "../pagination/page";
-import { slidePagination } from "../pagination/pagination";
+import { slideGaragePagination } from "../pagination/pagination-garage";
 import { carRace } from "../race/race";
-import { setCar } from "../set/setCar";
+import { setCar } from "../car/set-car";
 import { chooseCar } from "../update/choose-car";
-import { upadteCar } from "../update/upadte-car";
+import { upadteCar } from "../car/upadte-car";
 import { changePage } from "./change-page";
 
 // Отрисовка гаража
@@ -85,7 +85,7 @@ export function getPages(): void {
   <div class="garage__body">
     <div class="garage__info">
       <div class="garage__title">Garage(<span class="garage__all-list">1</span>)</div>
-      <div class="garage__page">Page #<span class="garage__cur-page">1</span> </div>  
+      <div class="garage__page">Page #<span class="garage__cur-page">${currentPage}</span> </div>  
     </div>
     <ul class="garage__list">
     </ul>
@@ -96,6 +96,17 @@ export function getPages(): void {
     </div>
   </div>`;
   page.appendChild(garage);
+
+  const popup: HTMLElement = document.createElement('section');
+  popup.classList.add('popup');
+  popup.innerHTML = 
+  `<div class="popup__container">
+    <div class="popup__body">
+      <div class="popup__info">Winner: <span class="popup-name">NAME</span></div>
+      <div class="popup__info">Time: <span class="popup-time">2:30</span></div>  
+    </div>
+  </div>`;
+  page.appendChild(popup);
 
   wrapper.appendChild(page);
 
@@ -111,7 +122,7 @@ export function getPages(): void {
   // Генерация машины
   gameControls();
   // Паштнация
-  slidePagination();
+  slideGaragePagination();
 }
 
 // Заполнение списка машин

@@ -1,7 +1,6 @@
 import { Cars } from "../../types/types";
 import { updateCars } from "../generation/update-garage";
-import { getCars, getTotalCars } from "../get/get-cars";
-import { currentPage } from "../pagination/page";
+import { getTotalCars } from "./get-cars";
 
 // Клик на кнопку добавления
 export function setCar():void {

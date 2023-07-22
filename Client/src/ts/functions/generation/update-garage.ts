@@ -1,4 +1,4 @@
-import { getCars } from "../get/get-cars";
+import { getCars } from "../car/get-cars";
 import { currentPage } from "../pagination/page";
 import { chooseCar } from "../update/choose-car";
 import { getGarageCar } from "./generate-garage";

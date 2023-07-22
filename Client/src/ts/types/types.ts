@@ -12,3 +12,14 @@ export type StartStop = {
 export type Drive = {
   succes: boolean,
 }
+
+export type Winners = {
+  id: number,
+  wins: number,
+  time: number,
+}
+
+export type UpdatedWinner = {
+  wins: number,
+  time: number,
+}

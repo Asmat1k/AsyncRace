@@ -1,5 +1,6 @@
 import { changeList } from "../generation/generate-garage";
-import { deleteCar } from "./delete-car";
+import { deleteCar } from "../car/delete-car";
+import { deleteWinner } from "../winners/delete-winner";
 
 // Кнопки управления модификацией и удалением машины
 export function chooseCar(): void {
@@ -12,6 +13,8 @@ export function chooseCar(): void {
       // Если клик по кнопке удаления, они имет не четный индекс
       if (button.classList.contains('remove'))  {
         await deleteCar(+nums[index % 2 > 0 ? Math.floor(index / 2) : index].innerHTML);
+        // Удаляем из победителей
+        await deleteWinner(+nums[index % 2 > 0 ? Math.floor(index / 2) : index].innerHTML);
       }
     });
   });

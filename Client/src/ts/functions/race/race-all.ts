@@ -1,7 +1,12 @@
-import { driveMode, startEngine } from "./race";
+import { getCar } from "../car/get-car";
+import { driveMode } from "../engine/drive-engine";
+import { startEngine } from "../engine/start-engine";
+import { getWinner } from "../winners/get-winner";
+import { setWinner } from "../winners/set-winner";
+import { updateWinner } from "../winners/update-winner";
 
-export let score: number = 1000;
-export let name: string;
+export let score: number = 100;
+export let id: number;
 
 // Начало гонки
 export function startRace(): void {
@@ -9,10 +14,11 @@ export function startRace(): void {
   const startButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.start')!;
   const stopButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.stop')!;
   const resetButton: HTMLButtonElement = document.querySelector('.reset')!;
-  
+  // Индикатор победы, чтобы регистрировалась только самая первая машина
+  let win = false;
+
   items.forEach(async (item: HTMLElement) => {
     buttonsDisable(startButtons, true);
-    const carName: HTMLElement = item.querySelector('.garage__car-name')!;
     // Модель машинки
     const carModel: HTMLElement = item.querySelector('.garage__car')!;
     // Айди машины
@@ -22,25 +28,66 @@ export function startRace(): void {
     try {
       // Время
       const time = (response.distance / response.velocity) / 1000;
-      if(time < score) {
-        score = time;
-        name = carName.innerHTML;
-      }
       // Анимация старт
       carModel.style.animationDuration = `${time}s`;
       carModel.classList.add('garage__car_race');
       resetButton.disabled = false;
       // Включение кнопки
       buttonsDisable(stopButtons, false);
+      // Процесс гонки
       const result = await driveMode(+carId.innerHTML);
-      console.log(result);
+      // Проверка на первого победителя
+      if (!win) {
+        win = true;
+        score = +time.toFixed(2);
+        id = +carId.innerHTML;
+        await showWinnerBlock(id, score);
+        // Работа с таблицей победителей
+        try {
+          // Пробуем установить победителя
+          await setWinner({
+            id: id,
+            wins: 1,
+            time: score
+          });
+          console.log('New winner created!');
+          // Если такая машину УЖЕ есть
+        } catch (getWinnerError) {  
+          // Получаем о ней информацию
+          const result = await getWinner(id);
+          // Обновляем о ней информацию
+          await updateWinner(id, {
+            wins: result.wins += 1,
+            // Если в этот раз быстрее, то заменить время
+            time: score < result.time ? score: result.time,
+          });
+          // Если кидать ошибку в записи победителя, то сработает try-catch родитель
+          console.log('Winner is updated!');
+        }
+      }
     } catch (driveError) {
       // Анимация конец при остановке двигателя
+      carModel.style.transform = 'scale(1.5) rotate(10deg)';
       carModel.style.animationPlayState = 'paused';
-      throw (driveError);
+      // Кинуть ошибку
+      // throw (driveError);
     }
-    console.log(`${name} - ${score.toFixed(2)}`);
   });
+}
+
+// Показ блока победы
+export async function showWinnerBlock(id: number, time: number): Promise<void> {
+  const popup: HTMLElement = document.querySelector('.popup')!;
+  const car = await getCar(id);
+  popup.innerHTML = '';
+  popup.style.display = 'block';
+  popup.innerHTML = 
+  `<div class="popup__container">
+    <div class="popup__body">
+      <div class="popup__info">Winner: <span class="popup-name">${car.name}</span></div>
+      <div class="popup__info">Time: <span class="popup-time">${time}</span></div>  
+    </div>
+  </div>`;
 }
 
 // Регулировка режима кнопок
