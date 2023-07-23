@@ -1,4 +1,5 @@
 import { Cars } from "../../types/types";
+import { isCarChoosed, resetCarChoosed } from "../garage-action/choose-car";
 import { changeList } from "../generation/generate-garage";
 
 // Функция обновления машины
@@ -8,12 +9,14 @@ export function upadteCar(): void {
   const color: HTMLInputElement = document.querySelector('.update-color')!;
   const id: HTMLElement = document.querySelector('.info__num')!;
   updateButton?.addEventListener('click', async (): Promise<void> => {
-    if (name.value.length > 0) {
+    if (name.value.length > 0 && isCarChoosed) {
       // данные, которые хоти обновить
       await updateItem({
         name: name.value,
         color: color.value,
       }, id.innerHTML);
+      // Скидываем проверку, так как машина обновилась
+      resetCarChoosed();
       // обновляем список
       await changeList();
       // Очистка поля ввода

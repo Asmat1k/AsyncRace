@@ -6,7 +6,6 @@ import { currentPage } from "../pagination/page";
 import { getWinner } from "../API-winners/get-winner";
 import { setWinner } from "../API-winners/set-winner";
 import { updateWinner } from "../API-winners/update-winner";
-import { getStopStatus, isStopped } from "./reset-all";
 
 export let score: number = 100;
 export let id: number;
@@ -52,11 +51,11 @@ export function startRace(): void {
         win = true;
         score = +time.toFixed(2);
         id = +carId.innerHTML;
-        // Если машина анимирована
-        if (carModel.classList.contains('garage__car_race')) await showWinnerBlock(id, score);
         // Работа с таблицей победителей и Если машина анимирована
         if (carModel.classList.contains('garage__car_race')) {
           try {
+            //? Появляется не моментально как машина выиграла, из-за проверки на остановку, иначе после ресета появится блок о победе
+            await showWinnerBlock(id, score);
             // Пробуем установить победителя
             await setWinner({
               id: id,

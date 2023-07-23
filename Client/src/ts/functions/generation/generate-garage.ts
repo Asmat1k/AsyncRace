@@ -7,6 +7,7 @@ import { setCar } from "../API-car/set-car";
 import { chooseCar } from "../garage-action/choose-car";
 import { upadteCar } from "../API-car/upadte-car";
 import { changePage } from "./change-page";
+import { colorCreate, colorUpdate, createInput, saveInput, updateInput } from "../garage-action/save-input";
 
 // Отрисовка гаража
 export function getPages(): void {
@@ -43,16 +44,16 @@ export function getPages(): void {
     <div class="info__body">
       <div class="info__list">
         <div class="info__item">
-          <input type="text" placeholder="Car name" maxlength="30" class="info__input info__car-new">
+          <input type="text" placeholder="Car name" maxlength="30" class="info__input info__car-new" value="${createInput}">
           <div class="info__color">
-            <input class="info__color-cur set-color" type="color" value="#e66465">
+            <input class="info__color-cur set-color" type="color" value="${colorCreate}">
           </div>
           <button class="info__button create">Create</button>
         </div>
         <div class="info__item">
-          <input type="text" placeholder="New car name" maxlength="30" class="info__input info__car">
+          <input type="text" placeholder="New car name" maxlength="30" class="info__input info__car" value="${updateInput}">
           <div class="info__color">
-            <input class="info__color-cur update-color" type="color" value="#f6b73c">
+            <input class="info__color-cur update-color" type="color" value="${colorUpdate}">
           </div>
           <button class="info__button update">Update</button>
           <h3 class="info__num"></h3>
@@ -123,6 +124,8 @@ export function getPages(): void {
   gameControls();
   // Паштнация
   slideGaragePagination();
+
+  saveInput();
 }
 
 // Заполнение списка машин
