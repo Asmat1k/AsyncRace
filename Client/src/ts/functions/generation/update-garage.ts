@@ -1,6 +1,6 @@
-import { getCars } from "../car/get-cars";
+import { getCars } from "../API-car/get-cars";
 import { currentPage } from "../pagination/page";
-import { chooseCar } from "../update/choose-car";
+import { chooseCar } from "../garage-action/choose-car";
 import { getGarageCar } from "./generate-garage";
 
 // Обновление гаража

@@ -1,7 +1,7 @@
 import { changeList } from "../generation/generate-garage";
-import { startRace } from "../race/race-all";
-import { endRace } from "../race/reset-all";
-import { createCar } from "../car/set-car";
+import { startRace } from "./race-all";
+import { endRace } from "./reset-all";
+import { createCar } from "../API-car/set-car";
 import { carModel } from "../storage/car-models";
 import { carBrand } from "../storage/car-models";
 import { colors } from "../storage/colors";

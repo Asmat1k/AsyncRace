@@ -1,11 +1,11 @@
-import { getCar } from "../car/get-car";
-import { getCars } from "../car/get-cars";
-import { driveMode } from "../engine/drive-engine";
-import { startEngine } from "../engine/start-engine";
+import { getCar } from "../API-car/get-car";
+import { getCars } from "../API-car/get-cars";
+import { driveMode } from "../API-engine/drive-engine";
+import { startEngine } from "../API-engine/start-engine";
 import { currentPage } from "../pagination/page";
-import { getWinner } from "../winners/get-winner";
-import { setWinner } from "../winners/set-winner";
-import { updateWinner } from "../winners/update-winner";
+import { getWinner } from "../API-winners/get-winner";
+import { setWinner } from "../API-winners/set-winner";
+import { updateWinner } from "../API-winners/update-winner";
 import { getStopStatus, isStopped } from "./reset-all";
 
 export let score: number = 100;

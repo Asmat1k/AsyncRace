@@ -1,6 +1,6 @@
 import { changeList } from "../generation/generate-garage";
-import { deleteCar } from "../car/delete-car";
-import { deleteWinner } from "../winners/delete-winner";
+import { deleteCar } from "../API-car/delete-car";
+import { deleteWinner } from "../API-winners/delete-winner";
 
 // Кнопки управления модификацией и удалением машины
 export function chooseCar(): void {

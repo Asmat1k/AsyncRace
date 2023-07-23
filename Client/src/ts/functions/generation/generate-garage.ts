@@ -1,11 +1,11 @@
-import { getCars, getTotalCars } from "../car/get-cars";
-import { gameControls } from "../mode/game-controls";
+import { getCars, getTotalCars } from "../API-car/get-cars";
+import { gameControls } from "../garage-action/game-controls";
 import { currentPage } from "../pagination/page";
 import { slideGaragePagination } from "../pagination/pagination-garage";
-import { carRace } from "../race/race";
-import { setCar } from "../car/set-car";
-import { chooseCar } from "../update/choose-car";
-import { upadteCar } from "../car/upadte-car";
+import { carRace } from "../garage-action/race";
+import { setCar } from "../API-car/set-car";
+import { chooseCar } from "../garage-action/choose-car";
+import { upadteCar } from "../API-car/upadte-car";
 import { changePage } from "./change-page";
 
 // Отрисовка гаража
@@ -45,14 +45,14 @@ export function getPages(): void {
         <div class="info__item">
           <input type="text" placeholder="Car name" maxlength="30" class="info__input info__car-new">
           <div class="info__color">
-            <input class="info__color-cur set-color" type="color">
+            <input class="info__color-cur set-color" type="color" value="#e66465">
           </div>
           <button class="info__button create">Create</button>
         </div>
         <div class="info__item">
           <input type="text" placeholder="New car name" maxlength="30" class="info__input info__car">
           <div class="info__color">
-            <input class="info__color-cur update-color" type="color">
+            <input class="info__color-cur update-color" type="color" value="#f6b73c">
           </div>
           <button class="info__button update">Update</button>
           <h3 class="info__num"></h3>

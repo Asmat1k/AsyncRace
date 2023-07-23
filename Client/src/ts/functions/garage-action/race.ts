@@ -1,6 +1,6 @@
 import { Cars, Drive, StartStop } from "../../types/types";
-import { driveMode } from "../engine/drive-engine";
-import { startEngine } from "../engine/start-engine";
+import { driveMode } from "../API-engine/drive-engine";
+import { startEngine } from "../API-engine/start-engine";
 
 export function carRace(): void {
   const raceButtons: NodeListOf<HTMLElement> = document.querySelectorAll('.race')!;

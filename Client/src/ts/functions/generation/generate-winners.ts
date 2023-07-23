@@ -1,7 +1,8 @@
-import { getCar } from "../car/get-car";
+import { getCar } from "../API-car/get-car";
 import { slideWinnersPagination } from "../pagination/pagination-winners";
 import { winnersPage } from "../pagination/page";
-import { getAllWinners, getTotalWinners } from "../winners/get-winners";
+import { getAllWinners, getTotalWinners } from "../API-winners/get-winners";
+import { sortWinnersTable } from "../winnners-action/sort-winners";
 
 // Страница с победителями
 export function getWinnersPage(): void {
@@ -37,7 +38,7 @@ export function getWinnersPage(): void {
 }
 
 // Заполнение списка машин победителей
-export async function changeWinnersList(): Promise<void> {
+export async function changeWinnersList(sort?: string, order?: string): Promise<void> {
   const list: HTMLElement = document.querySelector('.winner__list')!;
   const count: HTMLElement = document.querySelector('.winner__count')!;
   list.innerHTML = '';
@@ -48,25 +49,27 @@ export async function changeWinnersList(): Promise<void> {
   `<div class="winner__number">Number</div>
   <div class="winner__car">Car</div>
   <div class="winner__name">Name</div>
-  <div class="winner__wins">Wins</div>
-  <div class="winner__time">Best time</div>`;
+  <div class="winner__wins winner-sort">Wins</div>
+  <div class="winner__time winner-sort">Best time</div>`;
   list.appendChild(listHeader);
 
   count.innerHTML = `${(await getAllWinners()).length}`;
-  let length: number = (await getTotalWinners(winnersPage, 'id', 'ABC')).length;
+  let length: number = (await getTotalWinners(winnersPage, 'id', 'ASC')).length;
   // 10 машин на страницу
   for(let i = 0; i < length; i += 1) {
-    const car: HTMLElement = await getWinnersCar(i);
+    const car: HTMLElement = await getWinnersCar(i, sort, order);
     list.appendChild(car);
   }
+  
+  sortWinnersTable();
 }
 
 // Заполнение машины
-export async function getWinnersCar(i: number): Promise<HTMLElement> {
+export async function getWinnersCar(i: number, sort?: string, order?: string): Promise<HTMLElement> {
   const car: HTMLElement = document.createElement('li');
   car.classList.add('garage__item');
   try {
-    const result = await getTotalWinners(winnersPage, 'id', 'ASC');
+    const result = await getTotalWinners(winnersPage, sort!, order!);
     const carParams = await getCar(result[i].id);
     car.innerHTML = 
     `<li class="winner__item">
