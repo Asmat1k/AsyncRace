@@ -5,13 +5,14 @@ import { changeList } from "../generation/generate-garage";
 export function upadteCar(): void {
   const updateButton: HTMLElement = document.querySelector('.update')!;
   const name: HTMLInputElement = document.querySelector('.info__car')!;
+  const color: HTMLInputElement = document.querySelector('.update-color')!;
   const id: HTMLElement = document.querySelector('.info__num')!;
   updateButton?.addEventListener('click', async (): Promise<void> => {
     if (name.value.length > 0) {
       // данные, которые хоти обновить
       await updateItem({
         name: name.value,
-        color: 'green'
+        color: color.value,
       }, id.innerHTML);
       // обновляем список
       await changeList();

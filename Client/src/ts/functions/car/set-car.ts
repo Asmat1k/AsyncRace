@@ -6,6 +6,7 @@ import { getTotalCars } from "./get-cars";
 export function setCar():void {
   const createButton: HTMLElement = document.querySelector('.create')!;
   const name: HTMLInputElement = document.querySelector('.info__car-new')!;
+  const color: HTMLInputElement = document.querySelector('.set-color')!;
   const count: HTMLElement = document.querySelector('.garage__all-list')!;
   createButton.addEventListener('click', async (): Promise<void> => {
     // Если есть, что добавлять
@@ -14,7 +15,7 @@ export function setCar():void {
       await createCar({
         name: name.value,
         //!TODO ПОФИКСИТЬ ВЫБОР ЦВЕТА
-        color: 'blue'
+        color: color.value,
       });
       await updateCars();
 

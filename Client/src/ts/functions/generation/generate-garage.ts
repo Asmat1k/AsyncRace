@@ -45,14 +45,14 @@ export function getPages(): void {
         <div class="info__item">
           <input type="text" placeholder="Car name" maxlength="30" class="info__input info__car-new">
           <div class="info__color">
-            <div class="info__color-cur"></div>
+            <input class="info__color-cur set-color" type="color">
           </div>
           <button class="info__button create">Create</button>
         </div>
         <div class="info__item">
           <input type="text" placeholder="New car name" maxlength="30" class="info__input info__car">
           <div class="info__color">
-            <div class="info__color-cur"></div>
+            <input class="info__color-cur update-color" type="color">
           </div>
           <button class="info__button update">Update</button>
           <h3 class="info__num"></h3>

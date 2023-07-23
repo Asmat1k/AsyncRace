@@ -23,6 +23,7 @@ export function chooseCar(): void {
 //!TODO Доделать
 export async function fillCarInfo(i: number): Promise<void> {
   const name: HTMLInputElement = document.querySelector('.info__car')!;
+  const color: HTMLInputElement = document.querySelector('.update-color')!;
   // Блок который хранит текущее id
   const id: HTMLElement = document.querySelector('.info__num')!;
   //!TODO СДЕЛАТЬ СМЕНУ ЦВЕТА
@@ -31,6 +32,7 @@ export async function fillCarInfo(i: number): Promise<void> {
     const response = await fetch(url);
     const data = await response.json();
     name.value = data.name;
+    color.value = data.color;
     id.innerHTML = data.id;
   }
   catch (error) {
