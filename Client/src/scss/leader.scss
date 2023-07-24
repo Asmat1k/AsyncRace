@@ -68,6 +68,13 @@
             background-color: white;
             color: black;
           }
+          &:disabled {
+            background-color: black;
+            color: gray;
+            &:hover {
+              transform: translateX(0);
+            }
+          }
         }
         .prev:hover {
           transform: translateX(-10px);

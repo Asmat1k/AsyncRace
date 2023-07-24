@@ -1,16 +1,16 @@
 import { getCars, getTotalCars } from "../API-car/get-cars";
 import { gameControls } from "../garage-action/game-controls";
 import { currentPage } from "../pagination/page";
-import { slideGaragePagination } from "../pagination/pagination-garage";
+import { garagePaginationButtons, slideGaragePagination } from "../pagination/pagination-garage";
 import { carRace } from "../garage-action/race";
 import { setCar } from "../API-car/set-car";
 import { chooseCar } from "../garage-action/choose-car";
 import { upadteCar } from "../API-car/upadte-car";
 import { changePage } from "./change-page";
-import { colorCreate, colorUpdate, createInput, saveInput, updateInput } from "../garage-action/save-input";
+import { colorCreate, colorUpdate, createInput, updateInput } from "../garage-action/save-input";
 
 // Отрисовка гаража
-export function getPages(): void {
+export async function getPages(): Promise<void> {
   document.body.innerHTML = '';
   // Создание оболочки
   const wrapper: HTMLElement = document.createElement('div');
@@ -124,8 +124,6 @@ export function getPages(): void {
   gameControls();
   // Паштнация
   slideGaragePagination();
-
-  saveInput();
 }
 
 // Заполнение списка машин
@@ -143,6 +141,8 @@ export async function changeList(): Promise<void> {
     const car: HTMLElement = await getGarageCar(i);
     list.appendChild(car);
   }
+
+  await garagePaginationButtons('.pagination');
   // Прослшушка на машины
   chooseCar();
   // Управление машиной

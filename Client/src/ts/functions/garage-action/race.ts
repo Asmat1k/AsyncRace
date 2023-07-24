@@ -1,4 +1,4 @@
-import { Cars, Drive, StartStop } from "../../types/types";
+import { StartStop } from "../../types/types";
 import { driveMode } from "../API-engine/drive-engine";
 import { startEngine } from "../API-engine/start-engine";
 
@@ -37,6 +37,9 @@ export function carRace(): void {
             throw (driveError);
           }
         } catch (EngineStartError) {
+          // Вид сломанной машины
+          cars[index / 2].style.transform = 'scale(1.5) rotate(10deg)';
+          cars[index / 2].style.animationPlayState = 'paused';
           throw (EngineStartError);
         }
       }
@@ -45,6 +48,8 @@ export function carRace(): void {
         await startEngine(+nums[Math.floor(index / 2)].innerHTML, false);
         // Убрать анимацию
         cars[Math.floor(index / 2)].classList.remove('garage__car_race');
+        cars[Math.floor(index / 2)].style.transform = 'scale(1.5)';
+        cars[Math.floor(index / 2)].style.animationPlayState = 'running';
         // Отключить кнопку стопа
         eventTarget.disabled = true;
         // Включить кнопку старта

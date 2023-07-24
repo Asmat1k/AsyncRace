@@ -150,6 +150,13 @@
             background-color: white;
             color: black;
           }
+          &:disabled {
+            color: gray;
+            border-color: gray;
+            &:hover {
+              transform: translateX(0);
+            }
+          }
         }
         .prev:hover {
           transform: translateX(-10px);

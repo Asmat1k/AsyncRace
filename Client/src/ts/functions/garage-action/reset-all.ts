@@ -4,7 +4,6 @@ import { buttonsDisable } from "./race-all";
 export let isStopped = false;
 
 // Конец гонки
-//! TODO Пофиксить окончание гонки
 export function endRace(): void {
   const headerButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.header__item button')!;
   const items: NodeListOf<HTMLElement> = document.querySelectorAll('.garage__item')!;

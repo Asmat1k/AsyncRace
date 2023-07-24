@@ -1,4 +1,5 @@
-import { changeWinnersCurrentPage } from "./page";
+import { getTotalWinners } from "../API-winners/get-winners";
+import { changeWinnersCurrentPage, winnersPage } from "./page";
 
 // Пагинация
 export function slideWinnersPagination() {
@@ -14,4 +15,20 @@ export function slideWinnersPagination() {
       }
     });
   })
+}
+
+// Регулировка активности кнопок пагинации
+export async function winnnersPaginationButtons(className: string) {
+  const buttons: NodeListOf<HTMLButtonElement> = document.querySelectorAll(className)!;
+  // Активность кнопок пагинации
+  if(winnersPage - 1 === 0) {
+    buttons[0].disabled = true;
+  } else {
+    buttons[0].disabled = false;
+  }
+  if ((await getTotalWinners(winnersPage + 1, 'id', 'ASC')).length <= 0) {
+    buttons[1].disabled = true;
+  } else {
+    buttons[1].disabled = false;
+  }
 }

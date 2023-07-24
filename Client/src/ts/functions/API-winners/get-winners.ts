@@ -1,6 +1,6 @@
 import { Winners } from "../../types/types";
 
-// Получение списка машин
+// Получение списка победеителей
 export async function getTotalWinners(page: number, sort: string, order: string): Promise<Array<Winners>> {
   try { 
     const url = `http://127.0.0.1:3000/winners?_page=${page}&_limit=10&_sort=${sort}&_order=${order}`;

@@ -2,7 +2,7 @@ export const carBrand: Array<string> =
 [
   'Nissan', 'Skoda', 'Dodge', 'Mitsubishi', 'Ford', 'Toyota', 'Lada', 'Saab', 'Volvo', 'Daf', 'GMC',
   'UAZ', 'VAZ', 'Citroen', 'Renault', 'Subaru', 'Audi', 'BMW', 'Porshe', 'Mersedes', 'Honda', 'Mazda',
-  'Haval', 'Geely', 'Omooda', 'Genesis', 'Lexus', 'Rolls-Roys', 'Acura', 'Alfa Romeo', 'Bently', 'Aston Marion',
+  'Haval', 'Geely', 'Omooda', 'Genesis', 'Lexus', 'Rolls-Roys', 'Acura', 'Alfa Romeo', 'Bently', 'Aston Martin',
   'Aurus', 'Tesla', 'Hyundai', 'Opel', 'Lamborgini', 'Ferrari', 'Land Rover', 'Bugatti', 'Volkswagen', 'JAC',
 ];
 

@@ -1,5 +1,3 @@
-import { Winners } from "../../types/types";
-
 // Получение списка машин
 export async function deleteWinner(id: number): Promise<object> {
   try { 

@@ -1,5 +1,5 @@
 import { getCar } from "../API-car/get-car";
-import { slideWinnersPagination } from "../pagination/pagination-winners";
+import { slideWinnersPagination, winnnersPaginationButtons } from "../pagination/pagination-winners";
 import { winnersPage } from "../pagination/page";
 import { getAllWinners, getTotalWinners } from "../API-winners/get-winners";
 import { sortWinnersTable } from "../winnners-action/sort-winners";
@@ -31,9 +31,10 @@ export function getWinnersPage(): void {
     </div>
   </div>`;
   page.appendChild(leader);
-  
-  changeWinnersList();
 
+  // Заполнение таблицы
+  changeWinnersList();
+  // Пагинация
   slideWinnersPagination();
 }
 
@@ -60,6 +61,8 @@ export async function changeWinnersList(sort?: string, order?: string): Promise<
     const car: HTMLElement = await getWinnersCar(i, sort, order);
     list.appendChild(car);
   }
+
+  await winnnersPaginationButtons('.winner__button');
   
   sortWinnersTable();
 }
@@ -86,3 +89,4 @@ export async function getWinnersCar(i: number, sort?: string, order?: string): P
     throw (error);
   }
 }
+

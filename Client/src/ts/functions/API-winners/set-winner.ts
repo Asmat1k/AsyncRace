@@ -1,6 +1,6 @@
 import { Winners } from "../../types/types";
 
-// Получение списка машин
+// Установка победителя
 export async function setWinner(body: object): Promise<Winners> {
   try { 
     const url = `http://127.0.0.1:3000/winners`;

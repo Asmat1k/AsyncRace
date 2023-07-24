@@ -1,8 +1,10 @@
-import { changeList } from "../generation/generate-garage";
 import { deleteCar } from "../API-car/delete-car";
 import { deleteWinner } from "../API-winners/delete-winner";
 
+// Для определения были ли выбрана машина для обновления во избежании обновления "пустоты"
 export let isCarChoosed = false;
+// Для обновления машины. Глобальная, так как айди должен сохранятся при переключении страницы
+export let choosedCarId: number;
 
 // Кнопки управления модификацией и удалением машины
 export function chooseCar(): void {
@@ -12,8 +14,11 @@ export function chooseCar(): void {
     button.addEventListener('click', async (): Promise<void> => {
       // Если клик по кнопке выбора, они имеют четный индекс, поэтому они отлавливаются по делению
       if (button.classList.contains('select')) {
-        isCarChoosed = !isCarChoosed;
-        await fillCarInfo(+nums[index / 2].innerHTML);
+        // Машина выбрана
+        isCarChoosed = true;
+        // Запоминаем id
+        choosedCarId = +nums[index / 2].innerHTML;
+        await fillCarInfo(choosedCarId);
       }
       // Если клик по кнопке удаления, они имет не четный индекс
       if (button.classList.contains('remove'))  {

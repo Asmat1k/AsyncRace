@@ -1,6 +1,6 @@
-import { buttonsDisable } from "../garage-action/race-all";
+import { getCars } from "../API-car/get-cars";
 import { hideWinnerBlock } from "../garage-action/reset-all";
-import { changeGarageCurrentPage } from "./page";
+import { changeGarageCurrentPage, currentPage } from "./page";
 
 // Пагинация
 export function slideGaragePagination() {
@@ -21,4 +21,20 @@ export function slideGaragePagination() {
       }
     });
   })
+}
+
+// Регулировка активности кнопок пагинации
+export async function garagePaginationButtons(className: string) {
+  const buttons: NodeListOf<HTMLButtonElement> = document.querySelectorAll(className)!;
+  // Активность кнопок пагинации
+  if(currentPage - 1 === 0) {
+    buttons[0].disabled = true;
+  } else {
+    buttons[0].disabled = false;
+  }
+  if ((await getCars(currentPage + 1)).length <= 0) {
+    buttons[1].disabled = true;
+  } else {
+    buttons[1].disabled = false;
+  }
 }

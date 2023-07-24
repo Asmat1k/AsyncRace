@@ -1,6 +1,6 @@
-import { UpdatedWinner, Winners } from "../../types/types";
+import { UpdatedWinner } from "../../types/types";
 
-// Получение списка машин
+// Обновление информации победителя
 export async function updateWinner(id: number, body: object): Promise<UpdatedWinner> {
   try { 
     const url = ` http://127.0.0.1:3000/winners/${id}`;

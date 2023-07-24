@@ -21,9 +21,11 @@ export function startRace(): void {
   // Индикатор победы, чтобы регистрировалась только самая первая машина
   let win = false;
   animated = 0;
+  // Чтобы во время заезда нельзя было поменять страницу 
   buttonsDisable(headerButtons, true);
 
   items.forEach(async (item: HTMLElement) => {
+    // Отключение кнопок старата
     buttonsDisable(startButtons, true);
     // Модель машинки
     const carModel: HTMLElement = item.querySelector('.garage__car')!;
