@@ -1,0 +1,88 @@
+.winner {
+  font-family: "Dosis", sans-serif;
+  .winner__container {
+    .winner__body {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      .winner__info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .winner__title {
+          font-size: 25px;
+          font-weight: 700;
+          
+        }
+        .winner__subtitle {
+          font-size: 20px;
+        }
+      }
+      .winner__table {
+        .winner__list {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          max-width: 500px;
+          .winner__item {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            grid-template-columns: repeat(5, 100px);
+            grid-template-rows: 20px;
+            .winner-sort {
+              cursor: pointer;
+              transition: .3s;
+              &:hover {
+                text-decoration: underline;
+                transform: translateY(-2px);
+              }
+              &:active {
+                transform: scale(0.9);
+              }
+            }
+          }
+          .winner__header {
+            grid-template-rows: 10px;
+            background-color: blue;
+            color: white;
+            font-weight: 800;
+            padding: 5px 10px;
+            .winner__item {
+            display: grid;
+            grid-template-columns: repeat(5, 100px);
+            grid-template-rows: 10px;
+            }
+          }
+        }
+      }
+      .winner__controls {
+        display: flex;
+        gap: 10px;
+        .winner__button {
+          border: 1px solid white;
+          border-radius: 10px;
+          padding: 5px 10px;
+          transition: .5s;
+          &:hover {
+            background-color: white;
+            color: black;
+          }
+          &:disabled {
+            background-color: black;
+            color: gray;
+            &:hover {
+              transform: translateX(0);
+            }
+          }
+        }
+        .prev:hover {
+          transform: translateX(-10px);
+        }
+        .next:hover {
+          transform: translateX(10px);
+        }
+      }
+    }
+  }
+}
