@@ -1,0 +1,170 @@
+.garage {
+  font-family: 'Dosis', sans-serif;
+  width: 100%;
+  .garage__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    .garage__body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .garage__info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .garage__title {
+          font-size: 25px;
+          font-weight: 600;
+        }
+        .garage__page {
+          font-size: 20px;
+          font-weight: 600;
+        }
+      }
+      .garage__list {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: left;
+        .garage__item {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding: 0 0 20px 0;
+          width: 100%;
+          border-bottom: 1px dotted white;
+          .garage__controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 350px;
+            .garage__buttons {
+              .garage__button {
+                padding: 3px 8px;
+                border: 1px solid white;
+                border-radius: 10px;
+                transition: .3  s;
+                &:hover {
+                  background-color: white;
+                  color: black;
+                  transform: scale(1.1);
+                }
+              }
+            }
+            .garage__car-name {
+              text-align: left;
+              font-size: 15px;
+              font-weight: 700;
+              color: white;
+            }
+            .garage__car-num {
+              user-select: none;
+              color: transparent;
+            }
+          }
+          .garage__race {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 90%;
+            .garage__pit {
+              display: flex;
+              align-items: center;
+              gap: 30px;
+              .garage__start-stop {
+                .garage__button {
+                  padding: 3px 8px;
+                  border: 1px solid;
+                  border-radius: 10px;
+                  transition: transform .5s;
+                  &:hover {
+                    transform: scale(1.1);
+                  }
+                }
+                .race {
+                  border-color: green;
+                  color: green;
+                  &:active {
+                    background-color: green;
+                    color: black;
+                  }
+                  &:disabled {
+                    color: gray;
+                    border-color: gray;
+                    &:active {
+                      background-color: black;
+                      color: gray;
+                    }
+                    &:hover {
+                      transform: scale(1);
+                    }
+                  }
+                }
+                .stop {
+                  border-color: red;
+                  color: red;
+                  &:active {
+                    background-color: red;
+                    color: black;
+                  }
+                }
+              }
+            }
+            .garage__road {
+              display: flex;
+              justify-content: space-between;
+              width: 80%;
+              .garage__car {
+                transform: scale(1.5);
+                position: relative;
+                bottom: -13px;
+              }
+              .garage__car_race {
+                animation: race;
+                animation-duration: 5s;
+                animation-fill-mode: forwards;
+              }
+              @keyframes race {
+                from { right: 0; }
+                to { right: -103%; }
+               }
+              .garage__finish {
+                transform: scale(1.5);
+                position: relative;
+                bottom: -10px;
+              }
+            }
+          }
+        }
+      }
+      .garage__pag-controls {
+        display: flex;
+        gap: 10px;
+        .garage__button {
+          border: 1px solid white;
+          border-radius: 10px;
+          padding: 5px 10px;
+          transition: .5s;
+          &:hover {
+            background-color: white;
+            color: black;
+          }
+          &:disabled {
+            color: gray;
+            border-color: gray;
+            &:hover {
+              transform: translateX(0);
+            }
+          }
+        }
+        .prev:hover {
+          transform: translateX(-10px);
+        }
+        .next:hover {
+          transform: translateX(10px);
+        }
+      }
+    }
+  }
+}
